@@ -5,40 +5,25 @@ import mpl_toolkits.mplot3d.axes3d as p3
 from matplotlib import cm
 from scipy import interpolate
 
-def main():
-    # A1 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='A1')
-    # A2 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='A2')
-    # A3 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='A3')
-    # A4 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='A4')
-    # A5 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='A5')
-    # B1 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='B1')
-    # B2 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='B2')
-    # B3 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='B3')
-    # B4 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='B4')
-    # B5 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='B5')
-    # C1 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='C1')
-    # C2 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='C2')
-    # C3 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='C3')
-    # C4 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='C4')
-    # C5 = pd.read_excel('Stend_autoadjust.xlsx', sheet_name='C5')
+def plot_surface(path, name):
 
     names = ["IR", "IW", "FAR"]
 
-    A1 = pd.read_csv('autoadjust_A1.csv', header=None, names=names)
-    A2 = pd.read_csv('autoadjust_A2.csv', header=None, names=names)
-    A3 = pd.read_csv('autoadjust_A3.csv', header=None, names=names)
-    A4 = pd.read_csv('autoadjust_A4.csv', header=None, names=names)
-    A5 = pd.read_csv('autoadjust_A5.csv', header=None, names=names)
-    B1 = pd.read_csv('autoadjust_B1.csv', header=None, names=names)
-    B2 = pd.read_csv('autoadjust_B2.csv', header=None, names=names)
-    B3 = pd.read_csv('autoadjust_B3.csv', header=None, names=names)
-    B4 = pd.read_csv('autoadjust_B4.csv', header=None, names=names)
-    B5 = pd.read_csv('autoadjust_B5.csv', header=None, names=names)
-    C1 = pd.read_csv('autoadjust_C1.csv', header=None, names=names)
-    C2 = pd.read_csv('autoadjust_C2.csv', header=None, names=names)
-    C3 = pd.read_csv('autoadjust_C3.csv', header=None, names=names)
-    C4 = pd.read_csv('autoadjust_C4.csv', header=None, names=names)
-    C5 = pd.read_csv('autoadjust_C5.csv', header=None, names=names)
+    A1 = pd.read_csv(path + 'autoadjust_A1.csv', header=None, names=names)
+    A2 = pd.read_csv(path + 'autoadjust_A2.csv', header=None, names=names)
+    A3 = pd.read_csv(path + 'autoadjust_A3.csv', header=None, names=names)
+    A4 = pd.read_csv(path + 'autoadjust_A4.csv', header=None, names=names)
+    A5 = pd.read_csv(path + 'autoadjust_A5.csv', header=None, names=names)
+    B1 = pd.read_csv(path + 'autoadjust_B1.csv', header=None, names=names)
+    B2 = pd.read_csv(path + 'autoadjust_B2.csv', header=None, names=names)
+    B3 = pd.read_csv(path + 'autoadjust_B3.csv', header=None, names=names)
+    B4 = pd.read_csv(path + 'autoadjust_B4.csv', header=None, names=names)
+    B5 = pd.read_csv(path + 'autoadjust_B5.csv', header=None, names=names)
+    C1 = pd.read_csv(path + 'autoadjust_C1.csv', header=None, names=names)
+    C2 = pd.read_csv(path + 'autoadjust_C2.csv', header=None, names=names)
+    C3 = pd.read_csv(path + 'autoadjust_C3.csv', header=None, names=names)
+    C4 = pd.read_csv(path + 'autoadjust_C4.csv', header=None, names=names)
+    C5 = pd.read_csv(path + 'autoadjust_C5.csv', header=None, names=names)
 
     far_mean = (A1['FAR'] + A2['FAR'] + A3['FAR'] + A4['FAR'] + A5['FAR']
                + B1['FAR'] + B2['FAR'] + B3['FAR'] + B4['FAR'] + B5['FAR']
@@ -88,13 +73,15 @@ def main():
         # ,
         #                  rstride=1, cstride=1, color='g', cmap=cm.coolwarm)
     pl.clabel(cs, fmt='%.1f')#, colors="black")
+    ax.text2D(0.1, 0.9, name+"\nInterpolated total lite intensity by currents \n on red and white leds",
+              transform=ax.transAxes)
     fig.colorbar(cs, shrink=0.5, aspect=5)
     ax.set_ylabel('Red, mA')
     ax.set_xlabel('White, mA')
     ax.set_zlabel('FAR, mkmoles')
-    ax.set_title('Interpolated total lite intensity by currents \n on red and white leds')
+    # ax.set_title(name+'\nInterpolated total lite intensity by currents \n on red and white leds')
     # pl.grid()
-    # pl.savefig("gradient_metaopt_5678676787656765456765.png")
+    pl.savefig("./reports/" + name + "3d.png")
     pl.show()
 
     # 3
@@ -164,11 +151,14 @@ def main():
     ax.set_ylabel('x, cm')
     ax.set_xlabel('y, cm')
     ax.set_zlabel('FAR, mkmoles')
-    ax.set_title('Interpolated total lite intensity by currents \n on Ir = 200 and Iw = 200')
+    ax.text2D(0.1, 0.9, name+"\nInterpolated total lite intensity by currents \n on Ir = 200 and Iw = 200",
+              transform=ax.transAxes)
+    # ax.set_title(name+'\nInterpolated total lite intensity by currents \n on Ir = 200 and Iw = 200')
     # pl.grid()
     # pl.savefig("gradient_metaopt_5678676787656765456765.png")
+    pl.savefig("./reports/" + name + "_3d_surface.png")
     pl.show()
 
 
 if __name__ == "__main__":
-    main()
+    plot_surface(path="./data/control_25cm/", name="2021_control_25cm")
