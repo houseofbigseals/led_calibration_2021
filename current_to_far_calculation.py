@@ -86,6 +86,7 @@ def calculate_and_plot(path, name):
 
 
 if __name__ == "__main__":
-    calculate_and_plot(path="./data/exp_25cm/", name="2021_exp_25cm")
-    calculate_and_plot(path="./data/exp_15cm/", name="2021_exp_15cm")
-    calculate_and_plot(path="./data/control_25cm/", name="2021_control_25cm")
+    # calculate_and_plot(path="./data/exp_25cm/", name="2021_exp_25cm")
+    # calculate_and_plot(path="./data/exp_15cm/", name="2021_exp_15cm")
+    # calculate_and_plot(path="./data/control_25cm/", name="2021_control_25cm")
+    calculate_and_plot(path="./data/control_small_no_hat_25cm/", name="2021_control_small_no_hat_25cm")

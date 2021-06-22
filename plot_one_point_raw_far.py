@@ -161,4 +161,5 @@ def plot_surface(path, name):
 
 
 if __name__ == "__main__":
-    plot_surface(path="./data/control_25cm/", name="2021_control_25cm")
+    # plot_surface(path="./data/control_25cm/", name="2021_control_25cm")
+    plot_surface(path = "./data/control_small_no_hat_25cm/", name = "2021_control_small_no_hat_25cm")
